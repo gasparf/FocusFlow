@@ -55,10 +55,64 @@ function sentenceBionicBolder(html) {
 }
 
 function wordBionicBolder(word) {
-    var boldedText = word.substring(0,2)
-    var remainingText = word.substring(2,word.length)
-    
-    var bionicWord = '<b>' + boldedText + '</b>' + remainingText
+    var syllables = syllabify(word)
+    var boldedText = ''
+    var remainingText = ''
 
+    if (syllables == null) {
+        // non-vowel words (e.g. acronyms like NLP)
+        boldedText = word[0]
+        remainingText = word.substring(1, word.length)
+
+    } else if (syllables.length > 1) {
+        // multi syllable words
+        boldedText = syllables[0]
+        remainingText = syllables.slice(1).join('')
+
+    } else {
+        // single syllable words
+        if (isVowel(word[0])) {
+            // first letter is a vowel
+            boldedText = word[0]
+            remainingText = word.substring(1, word.length)
+
+        } else {
+            // first letter is a consonant
+            // onset is the set of initial consonants before a vowel
+            var onsetRemoved = splitOnset(word)
+            boldedText = onsetRemoved[0]
+            remainingText = onsetRemoved[1]
+        }
+    }
+
+    var bionicWord = '<b>' + boldedText + '</b>' + remainingText
     return bionicWord
+}
+
+// https://stackoverflow.com/questions/49403285/splitting-word-into-syllables-in-javascript
+function syllabify(word) {
+    const syllableRegex = /[^aeiouy]*[aeiouy]+(?:[^aeiouy]*$|[^aeiouy](?=[^aeiouy]))?/gi;
+    return word.match(syllableRegex);
+}
+
+// fast vowel checker from
+// https://stackoverflow.com/questions/5488028/how-do-i-check-for-vowels-in-javascript
+function isVowel(char)
+{
+    return char === 'a' || char === 'e' || char === 'i' || char === 'o' || char === 'u' || false;
+}
+
+function splitOnset(word) {
+    var onset = ''
+    var remainder = ''
+
+    for (let i = 0; i < word.length; i++) {
+        if (isVowel(word[i])) {
+            onset = word.substring(0, i)
+            remainder = word.substring(i, word.length)
+            break
+        }
+    }
+
+    return [onset, remainder]
 }
