@@ -1,19 +1,13 @@
 {
     "manifest_version": 3,
     "name": "FocusFlow",
-    "description": "Improves readability of online text using bionic reading",
+    "description": "Reading made easier",
     "version": "1.0",
     "action": {
-      "default_icon": "focusflow-icon.png"
-    },
-    "background": {
-      "service_worker": "background.js"
-    },
-    "content_scripts": [
-      {
-        "matches": ["*://*/*"],
-        "js": ["content-script.js", "background.js", "remove-child.js"]
-      }
-    ],
-    "permissions": ["scripting", "activeTab"]
+      "default_popup": "popup.html",
+      "default_icon": "ff.png"
+    }, 
+   "background": {
+    "service_worker": "background.js"
+   }
   }
