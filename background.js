@@ -20,6 +20,9 @@ chrome.action.onClicked.addListener(async (tab) => {
             files: ['content-script.js'],
           });
       } else if (nextState === 'OFF') {
-
+        chrome.scripting.executeScript({
+          target: {tabId: tab.id, allFrames: true},
+          files: ['remove-child.js'],
+        });
       }
   });

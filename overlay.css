@@ -1,0 +1,13 @@
+.overlay-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    width: 40%;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+ .overlay-content {
+    background-color: pink;
+
+ }
