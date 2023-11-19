@@ -4,11 +4,12 @@
     "description": "Improves readability of online text using bionic reading",
     "version": "1.0",
     "action": {
-      "default_popup": "hello.html",
-      "default_icon": "hello_extensions.png"
+      "default_icon": "focusflow-icon.png"
     },
-    "background": {
-      "service_worker": "background.js"
-    },
+    "content_scripts": [
+      {
+        "js": ["content-script.js"]
+      }
+    ],
     "permissions": ["scripting", "activeTab"]
   }
