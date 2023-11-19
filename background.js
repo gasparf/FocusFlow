@@ -17,7 +17,7 @@ chrome.action.onClicked.addListener(async (tab) => {
       if (nextState === 'ON') {
         chrome.scripting.executeScript({
             target: {tabId: tab.id, allFrames: true},
-            files: ['bionic-bolder.bionicjs'],
+            files: ['bionic-bolder.js'],
           });
       } else if (nextState === 'OFF') {
         chrome.scripting.executeScript({
