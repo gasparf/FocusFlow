@@ -12,7 +12,7 @@
     "content_scripts": [
       {
         "matches": ["*://*/*"],
-        "js": ["content-script.js"]
+        "js": ["content-script.js", "background.js"]
       }
     ],
     "permissions": ["scripting", "activeTab"]
