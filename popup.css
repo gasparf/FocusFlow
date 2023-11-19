@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Montserrat+Alternates:wght@500&display=swap');
+
+body{
+    height: 300px;
+    width: 250px;
+    background-color: rgb(56, 42, 94);
+    border-style: solid;
+    border-color: rgb(73, 41, 161);
+    border-width: 2px;
+}
+
+h1 {
+    font-family: 'Montserrat Alternates', sans-serif;
+    font-weight: 500;
+    font-size: 2.5rem;
+    display: flex;
+    margin: auto;
+    color: white;   
+}
+
+label {
+    color: white;
+    margin-left: 1rem;
+}
+
+.form-switch .form-check-input:checked {
+    background-color: rgb(84, 171, 100);
+}
+
+mark {
+    background-color: yellow;
+}
+
+#flexSwitchCheckDefault:nth-child(3) {
+    color: red;
+}
