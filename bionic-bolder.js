@@ -12,42 +12,78 @@ for (let i = 0; i < text.length; i++) {
   }
 
 function sentenceBionicBolder(html) {
-    const blacklist = /[^a-zA-Z]/g
-    var boldedHTML = ''
+    const State = {
+        withinTag: 'withinTag',
+        withinWord: 'withinWord',
+        withinSpecial: 'withinSpecial',
+        betweenStates: 'betweenStates'
+    };
+    const blacklist = /[^a-zA-Z]/g;
+
     var currWordStart = 0
-    var currentlyInTag = false
-    var currentlyInWord = false
+    var state = State.betweenStates
+    var boldedHTML = ''
     for (let i = 0; i < html.length; i++) {
-        if (currentlyInTag) {
-            // encountered end of html tag
-            if (html[i] == '>') { currentlyInTag = false }
-            boldedHTML += html[i]
-
-        } else {
-            // encountered beginning of html tag
-            if (html[i] == '<') {
-                currentlyInTag = true
+        console.log(state)
+        switch(state) {
+            case State.withinTag:
+                // encountered end of html tag
+                if (html[i] == '>') { state = State.betweenStates}
                 boldedHTML += html[i]
-                continue
-            }
+                break
 
-            // encountered beginning of word
-            if (html[i].match(blacklist) == null && currentlyInWord == false) {
-                currentlyInWord = true
-                currWordStart = i
-                continue
-            }
-
-            // encountered non-letter character after being within word
-            if (html[i].match(blacklist) != null) {
-                if (currentlyInWord) {
+            case State.withinWord:
+                // encountered non-letter character after being within word
+                if (html[i].match(blacklist) != null) {
                     var boldSubstr = html.substring(currWordStart, i)
                     boldedHTML += wordBionicBolder(boldSubstr)
-                    currentlyInWord = false
+                    if (html[i] == '<') {
+                        state = State.withinTag
+                    } else if (html[i] == '&') {
+                        state = State.withinSpecial
+                    } else {
+                        state = State.betweenStates
+                    }
+                    boldedHTML += html[i]
+                    // console.log(html[i])
+                    // console.log(boldSubstr)
+                    // console.log(boldedHTML)
+                }
+                break
+
+            case State.withinSpecial:
+                // end of special
+                if (html[i].match(blacklist) != null) {
+                    state = State.betweenStates
                 }
                 boldedHTML += html[i]
-                continue
-            }
+                break
+
+            case State.betweenStates:
+                // encountered beginning of html tag
+                if (html[i] == '<') {
+                    state = State.withinTag
+                    boldedHTML += html[i]
+                }
+
+                // encountered beginning of special (e.g. &nbsp)
+                 else if (html[i] == '&') {
+                    state = State.withinSpecial
+                    boldedHTML += html[i]
+                }
+
+                // encountered beginning of word
+                else if (html[i].match(blacklist) == null) {
+                    state = State.withinWord
+                    currWordStart = i
+                }
+
+                // still between states
+                else {
+                    boldedHTML += html[i]
+                }
+
+                break
         }
     }
 
@@ -86,6 +122,8 @@ function wordBionicBolder(word) {
     }
 
     var bionicWord = '<b>' + boldedText + '</b>' + remainingText
+    console.log(word)
+    console.log(bionicWord)
     return bionicWord
 }
 
@@ -99,7 +137,7 @@ function syllabify(word) {
 // https://stackoverflow.com/questions/5488028/how-do-i-check-for-vowels-in-javascript
 function isVowel(char)
 {
-    return char === 'a' || char === 'e' || char === 'i' || char === 'o' || char === 'u' || false;
+    return char === 'a' || char === 'e' || char === 'i' || char === 'o' || char === 'u' || char === 'A' || char === 'E' || char === 'I' || char === 'O' || char === 'U' || false;
 }
 
 function splitOnset(word) {
