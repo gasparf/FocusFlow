@@ -4,8 +4,7 @@
     "description": "Reading made easier",
     "version": "1.0",
     "action": {
-      "default_icon": "focusflow-icon.png",
-      "default_popup": "popup.html"
+      "default_icon": "focusflow-icon.png"
     },
     "background": {
       "service_worker": "background.js"

@@ -18,18 +18,18 @@ document.addEventListener('DOMContentLoaded', function () {
       chrome.runtime.sendMessage({ badgeText: state });
     }
 
-    function executeContentScript() {
-        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            chrome.scripting.executeScript({
-                target: { tabId: tabs[0].id, allFrames: true },
-                files: ['content-scripts.js'],
-            }, function (results) {
-                if (chrome.runtime.lastError) {
-                    console.error('Script execution error:', chrome.runtime.lastError);
-                } else {
-                    console.log('content-scripts.js executed successfully:', results);
-                }
-            });
-        });
-    }
+    // function executeContentScript() {
+    //     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    //         chrome.scripting.executeScript({
+    //             target: { tabId: tabs[0].id, allFrames: true },
+    //             files: ['content-scripts.js'],
+    //         }, function (results) {
+    //             if (chrome.runtime.lastError) {
+    //                 console.error('Script execution error:', chrome.runtime.lastError);
+    //             } else {
+    //                 console.log('content-scripts.js executed successfully:', results);
+    //             }
+    //         });
+    //     });
+    // }
   });
