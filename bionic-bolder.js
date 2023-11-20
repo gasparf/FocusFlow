@@ -1,13 +1,11 @@
-const text = document.querySelectorAll('h1, h2, h3, h4, h5, p, caption, span, pr')
+const text = document.getElementById('my-overlay').querySelectorAll('h1, h2, h3, h4, h5, p, caption, span, pr')
+// const text = document.querySelectorAll('h1, h2, h3, h4, h5, p, caption, span, pr')
 
 for (let i = 0; i < text.length; i++) {
     if (text[i].innerHTML.length == 0) {
         continue
     }
-    if (text[i].innerHTML[0] == '<') {
-        continue
-    }
-
+    console.log(text[i].innerHTML)
     text[i].innerHTML = sentenceBionicBolder(text[i].innerHTML)
   }
 
@@ -24,6 +22,8 @@ function sentenceBionicBolder(html) {
     var state = State.betweenStates
     var boldedHTML = ''
     for (let i = 0; i < html.length; i++) {
+        console.log(state)
+        console.log(html[i])
         switch(state) {
             case State.withinTag:
                 // encountered end of html tag
@@ -44,6 +44,8 @@ function sentenceBionicBolder(html) {
                         state = State.betweenStates
                     }
                     boldedHTML += html[i]
+                    console.log(boldSubstr)
+                    console.log(boldedHTML)
                 }
                 break
 
@@ -144,6 +146,11 @@ function splitOnset(word) {
             remainder = word.substring(i, word.length)
             break
         }
+    }
+
+    if (onset == '') {
+        onset = word[0]
+        remainder = word.substring(1, word.length)
     }
 
     return [onset, remainder]
