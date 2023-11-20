@@ -1,10 +1,7 @@
-const text = document.querySelectorAll('h1, h2, h3, h4, h5, p, caption, span')
+const text = document.querySelectorAll('h1, h2, h3, h4, h5, p, caption, span, pr')
 
 for (let i = 0; i < text.length; i++) {
     if (text[i].innerHTML.length == 0) {
-        continue
-    }
-    if (text[i].innerHTML[0] == '<') {
         continue
     }
 

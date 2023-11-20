@@ -1,13 +1,16 @@
-chrome.runtime.onInstalled.addListener(() => {
+  chrome.runtime.onInstalled.addListener(() => {
     chrome.action.setBadgeText({
       text: 'OFF'
     });
   });
+  
 
-  document.getElementById("success-outlined").addEventListener("click", handleButtonClick);
-
-function handleButtonClick() {
-
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.badgeText) {
+    chrome.action.setBadgeText({ text: message.badgeText });
+  }
+});
+  
   chrome.action.onClicked.addListener(async (tab) => {
     const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
     const nextState = prevState === 'ON' ? 'OFF' : 'ON';
@@ -31,4 +34,4 @@ function handleButtonClick() {
     }
 });
 
-}
+  
