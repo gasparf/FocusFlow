@@ -54,12 +54,12 @@ chrome.action.onClicked.addListener(async (tab) => {
   if (nextState === 'ON') {
     chrome.scripting.executeScript({
         target: {tabId: tab.id, allFrames: true},
-        files: ['bionic-bolder.js', 'content-script.js'],
+        files: ['content-script.js', 'bionic-bolder.js', 'highlight.js'],
       });
   } else if (nextState === 'OFF') {
     chrome.scripting.executeScript({
       target: {tabId: tab.id, allFrames: true},
-      files: ['remove-child.js'],
+      files: ['remove-child.js', 'highlight.js'],
     });
   }
 });
