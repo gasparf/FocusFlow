@@ -1,4 +1,4 @@
-highlightText = document.querySelectorAll('p')
+highlightText = document.getElementById("my-overlay").querySelectorAll('p')
 
 // makes all "..." into "…"
 for (let k = 0; k < highlightText.length; k++) {
@@ -13,9 +13,10 @@ idx = 0 // the index of the current sentence in the current chunk of test
 smallSentence = 20 // what makes a sentence small
 document.addEventListener('keypress', (key)=>{
     // only include <p> and not <p anything else>
-    while (i < highlightText.length && highlightText[i].className != "") {
-        i++
-    }
+    // while (i < highlightText.length && highlightText[i].className != "" 
+    // && highlightText[i].className != "id") {
+    //     i++
+    // }
     
     if (key.which == 13 && i < highlightText.length) {
         if (idx == 0) {
