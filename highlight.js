@@ -1,4 +1,9 @@
-const highlightText = document.querySelectorAll('p')
+highlightText = document.querySelectorAll('p')
+for (let k = 0; k < highlightText.length; k++) {
+    if (highlightText[k].innerHTML.indexOf("...") != -1) {
+        highlightText[k].innerHTML = highlightText[k].innerHTML.replaceAll("...", "…")
+    }
+}
 i = 0
 strs = {}
 idx = 0
@@ -47,7 +52,6 @@ document.addEventListener('keypress', (key)=>{
             } else {
               str += strs[k]
             }
-            console.log(str)
           }
         }
         idx++
